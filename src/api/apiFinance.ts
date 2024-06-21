@@ -11,7 +11,6 @@ type MovementsType={
   updatedAt: string,
   __v: number
 }
-type Amount = number | string
 
 
 

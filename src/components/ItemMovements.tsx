@@ -26,7 +26,6 @@ const ItemMovements: React.FC<PropItemMovements> = ({
 }) => {
   const date = dayjs(createdAt).format('DD MMMM YYYY');
   const value = amount.toLocaleString('es-ES');
-  const idDelete = useSelector<RootState, string>(state => state.modal.ID);
 
   const dispatch = useDispatch<AppDispatch>();
   const handleActionOnPress = React.useCallback(() => {
@@ -36,9 +35,18 @@ const ItemMovements: React.FC<PropItemMovements> = ({
 
   return (
     <View style={styles.containerItem}>
-      <Text style={styles.txtTitle}>{date}</Text>
-      <Text style={styles.txtTitle}>{type}</Text>
-      <Text style={styles.txtTitle}>{value}</Text>
+      <Text
+        style={type === 'Egreso' ? styles.txtTitleWith : styles.txtTitleDepo}>
+        {date}
+      </Text>
+      <Text
+        style={type === 'Egreso' ? styles.txtTitleWith : styles.txtTitleDepo}>
+        {type}
+      </Text>
+      <Text
+        style={type === 'Egreso' ? styles.txtTitleWith : styles.txtTitleDepo}>
+        {value}
+      </Text>
       <TouchableOpacity
         style={styles.touchableIconDelete}
         onPress={handleActionOnPress}>
@@ -61,7 +69,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
   },
-  txtTitle: {fontWeight: 'bold', flex: 1, textAlign: 'center'},
+  txtTitleWith: {
+    fontWeight: 'bold',
+    flex: 1,
+    textAlign: 'center',
+    color: Colors.orange,
+  },
+  txtTitleDepo: {
+    fontWeight: 'bold',
+    flex: 1,
+    textAlign: 'center',
+    color: Colors.dark_blue,
+  },
   touchableIconDelete: {position: 'absolute', right: 12},
   iconDelete: {width: 15, height: 15},
 });

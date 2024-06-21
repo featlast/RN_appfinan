@@ -6,11 +6,7 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {
-  useAddMovementsMutation,
-  useGetBalanceQuery,
-  useGetMovementsQuery,
-} from '../api/apiFinance';
+import {useGetBalanceQuery, useGetMovementsQuery} from '../api/apiFinance';
 import {Colors} from '../theme/colors';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch, RootState} from '../redux/store';
@@ -22,17 +18,10 @@ import ListFooter from '../components/ListFooter';
 import Footer from '../components/Footer';
 import ModalCustom from '../components/ModalCustom';
 import {openModal, openModalMovements} from '../redux/feature/modalSlice';
-import Toast from 'react-native-toast-message';
 import ModalAddMovement from '../components/ModalAddMovement';
 
 const ListsMovements = () => {
-  const {
-    data: balance,
-    isLoading: loadingBalance,
-    isError,
-    status,
-    currentData,
-  } = useGetBalanceQuery();
+  const {data: balance, isLoading: loadingBalance} = useGetBalanceQuery();
 
   const {data: movements, isLoading} = useGetMovementsQuery();
   const email = useSelector<RootState, string>(state => state.login.email);
@@ -52,8 +41,6 @@ const ListsMovements = () => {
   const handleOpenModalMovements = () => {
     dispatch(openModalMovements());
   };
-
-  console.log('SALDO=>', useGetBalanceQuery());
 
   //@ts-ignore
   const currentSalty = balance?.toLocaleString('es-ES');
