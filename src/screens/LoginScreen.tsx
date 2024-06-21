@@ -23,7 +23,7 @@ const LoginScreen = () => {
   const navigation = useNavigation<NavigationProp>();
   const dispatch = useDispatch<AppDispatch>();
 
-  const [signIn, {isLoading, isError, error}] = useSignInMutation();
+  const [signIn, {isLoading, error}] = useSignInMutation();
 
   const {email} = useSelector<RootState, TextInputState>(state => state.login);
 
@@ -39,7 +39,6 @@ const LoginScreen = () => {
       });
       navigation.navigate('ListsMovements');
     } catch (err: any) {
-      console.log('error al iniciar=>', err);
       Toast.show({
         type: 'error',
         text1: '⚠️ Error al iniciar sesión:',
@@ -57,7 +56,7 @@ const LoginScreen = () => {
       <View style={styles.container}>
         <Input />
         <Button
-          text={
+          title={
             isLoading ? (
               <ActivityIndicator size={'small'} color={Colors.orange} />
             ) : (

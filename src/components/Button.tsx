@@ -1,25 +1,37 @@
 import React, {ReactNode} from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, ButtonProps} from 'react-native';
 import {Colors} from '../theme/colors';
 
 type ButtonTextProp = ReactNode | string;
-interface PropsButton {
+
+export interface ButtonStyle {
+  backgroundColor: string;
+}
+interface PropsButton extends Omit<ButtonProps, 'style'> {
   onPress: () => void;
-  text: ButtonTextProp;
-  disable: boolean;
+  title: ButtonTextProp;
+  disable?: boolean;
+  style?: ButtonStyle;
 }
 
-const Button: React.FC<PropsButton> = ({text = 'Button', onPress, disable}) => {
+const Button: React.FC<PropsButton> = ({
+  title = 'Button',
+  onPress,
+  disable,
+  style,
+  ...rest
+}) => {
   return (
     <TouchableOpacity
       style={
         !disable
-          ? styles.button
+          ? [styles.button, style]
           : [styles.button, {backgroundColor: Colors.purple_light}]
       }
       onPress={onPress}
-      disabled={disable}>
-      <Text style={styles.titleButton}>{text}</Text>
+      disabled={disable}
+      {...rest}>
+      <Text style={styles.titleButton}>{title}</Text>
     </TouchableOpacity>
   );
 };

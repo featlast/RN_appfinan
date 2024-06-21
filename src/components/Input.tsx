@@ -6,6 +6,7 @@ import {
   Animated,
   TextInput,
   TouchableOpacity,
+  TextInputProps,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome6';
 import {Colors} from '../theme/colors';
@@ -13,7 +14,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch, RootState} from '../redux/store';
 import {TextInputState, changeText} from '../redux/feature/loginSlice';
 
-const Input = ({title = 'Email', icon = '', ...rest}) => {
+interface InputProps extends Omit<TextInputProps, 'style'> {
+  title?: string;
+  icon?: string;
+}
+
+const Input: React.FC<InputProps> = ({title = 'Email', icon = '', ...rest}) => {
   const dispatch = useDispatch<AppDispatch>();
   interface InputState {
     value: string;
@@ -109,7 +115,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
     borderWidth: 1.2,
     borderColor: Colors.purple,
     borderRadius: 8,
@@ -122,7 +128,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 13,
-    color: '#383838',
+    color: Colors.dark_gray,
   },
   titleBox: {
     height: 'auto',
@@ -138,7 +144,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 14,
     fontWeight: '400',
-    color: '#6F37C6',
+    color: Colors.purple,
   },
   emailInvalide: {
     color: Colors.orange,
